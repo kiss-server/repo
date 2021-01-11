@@ -1,3 +1,6 @@
 [submodule "community"]
 	path = community
 	url = https://github.com/kiss-community/repo-community.git
+[submodule "main"]
+	path = main
+	url = https://github.com/noirlinux/main.git
