@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+# shellcheck disable=SC2155
+
 export LUAJIT_LIB="$(pkgconf --variable=libdir luajit)"
 export LUAJIT_INC="$(pkgconf --variable=includedir luajit)"
 
