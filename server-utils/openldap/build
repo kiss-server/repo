@@ -1,0 +1,39 @@
+#!/bin/sh -e
+
+autoconf
+
+./configure \
+    --prefix=/usr         \
+    --sysconfdir=/etc     \
+    --localstatedir=/var  \
+    --libexecdir=/usr/lib \
+    --disable-static      \
+    --disable-debug       \
+    --with-tls=openssl    \
+    --with-cyrus-sasl     \
+    --enable-dynamic      \
+    --enable-crypt        \
+    --enable-spasswd      \
+    --enable-slapd        \
+    --enable-modules      \
+    --enable-rlookups     \
+    --enable-backends=mod \
+    --disable-ndb         \
+    --disable-sql         \
+    --disable-shell       \
+    --disable-bdb         \
+    --disable-hdb         \
+    --enable-overlays=mod
+
+make depend
+make
+make DESTDIR="$1" install
+
+sed -e "s/\.la/.so/" -i /etc/openldap/slapd.{conf,ldif}{,.default}
+
+install -Dm755 slapd.initd "$1/etc/init.d/slapd"
+install -Dm644 slapd.confd "$1/etc/conf.d/slapd"
+install -Dm700 ldap "$1/var/lib/openldap"
+install -Dm700 ldap "$1/etc/openldap/slapd.d"
+
+chmod 640 "$1/etc/openldap/slapd.{conf,ldif}"
