@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+patch -p1 < fix-includes.patch
+
+./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --mandir=/usr/share/man \
+    --enable-msdblib \
+    --with-openssl=/usr \
+    --enable-odbc \
+    --with-unixodbc=/usr
+
+make
+make DESTDIR="$1" install
