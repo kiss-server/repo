@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --mandir=/usr/share/man \
+    --disable-nls \
+    --enable-gui=no \
+    --enable-static
+
+make
+make DESTDIR="$1" install
