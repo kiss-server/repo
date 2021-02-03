@@ -1,0 +1,61 @@
+#!/bin/sh -e
+
+for patch in *.patch; do
+    patch -p1 < "$patch"
+done
+
+rm config.layout
+
+sed '/dir.*CFG_PREFIX/s@^@#@' -i support/apxs.in 
+
+mv kiss.layout config.layout
+
+./configure \
+    --prefix=/usr \
+    --enable-layout=KISS \
+    --with-suexec-caller=apache \
+    --with-suexec-docroot=/var/www \
+    --with-suexec-logfile=/var/log/apache2/suexec.log \
+    --with-suexec-bin=/usr/bin/suexec \
+    --with-suexec-uidmin=99 \
+    --with-suexec-gidmin=99 \
+    --with-apr=/usr/bin/apr-1-config \
+    --with-apr-util=/usr/bin/apu-1-config \
+    --with-pcre=/usr \
+    --enable-mods-shared="all cgi" \
+    --enable-mpms-shared=all \
+    --with-mpm=prefork \
+    --enable-ssl \
+    --with-ssl \
+    --enable-proxy \
+    --enable-cache \
+    --enable-disk-cache \
+    --enable-mem-cache \
+    --enable-file-cache \
+    --enable-cgid \
+    --enable-cgi \
+    --enable-authn-anon \
+    --enable-authn-alias \
+    --disable-imagemap \
+    --enable-proxy-connect \
+    --enable-proxy-http \
+    --enable-proxy-ftp \
+    --enable-deflate \
+    --enable-dbd \
+    --enable-exception-hook \
+    --enable-dav \
+    --enable-dav-fs \
+    --enable-dav-lock
+
+make
+make DESTDIR="$1" install
+
+mkdir -p "$1/var/www"
+install -Dm2750 -g wheel "$1/var/log/apache2"
+
+
+ln -s /var/log/apache2 "$1/var/www/logs"
+ln -s /var/run/apache2 "$1/var/www/run"
+ln -s /usr/lib/apache2 "$1/var/www/modules"
+
+rm -rf "$1/run"

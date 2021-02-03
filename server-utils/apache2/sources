@@ -1,0 +1,16 @@
+https://archive.apache.org/dist/httpd/httpd-2.4.46.tar.bz2
+files/kiss.layout
+patches/0001-httpd.conf-ServerRoot.patch
+patches/0002-httpd.conf-ServerTokens.patch
+patches/0003-httpd.conf-ServerSignature.patch
+patches/0004-httpd.conf-User-Group.patch
+patches/0005-httpd.conf-ErrorLog-CustomLog-TransferLog.patch
+patches/0006-httpd-dav.conf-DavLockDB.patch
+patches/0007-httpd-ssl.conf-SSLSessionCache.patch
+patches/0008-httpd-ssl.conf-SSLRandomSeed.patch
+patches/0009-httpd-ssl.conf-SSL-File.patch
+patches/0010-httpd-ssl.conf-SSL-CipherSuite.patch
+patches/0011-httpd.conf-IncludeOptional.patch
+patches/0012-httpd.conf-MIMEMagicFile.patch
+patches/0013-httpd-.conf-IfModule.patch
+patches/0014-httpd-.conf-LoadModule.patch
