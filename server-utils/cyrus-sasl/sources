@@ -1,0 +1,8 @@
+https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-2.1.27/cyrus-sasl-2.1.27.tar.gz
+patches/cyrus-sasl-2.1.27-as_needed.patch
+patches/cyrus-sasl-2.1.27-autotools_fixes.patch
+patches/cyrus-sasl-2.1.27-avoid_pic_overwrite.patch
+patches/cyrus-sasl-2.1.27-doc_build_fix.patch
+patches/cyrus-sasl-2.1.27-gss_c_nt_hostbased_service.patch
+patches/CVE-2019-19906.patch
+files/saslauthd.initd

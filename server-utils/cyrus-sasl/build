@@ -1,0 +1,42 @@
+#!/bin/sh -e
+
+for patch in *.patch; do
+    patch -p1 < "$patch"
+done
+
+autoreconf -vif
+
+./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --mandir=/usr/share/man \
+    --enable-static \
+    --enable-shared \
+    --disable-java \
+    --with-plugindir=/usr/lib/sasl2 \
+    --with-configdir=/etc/sasl2 \
+    --with-dbpath=/etc/sasl2/sasldb2 \
+    --disable-krb4 \
+    --with-gss_impl=heimdal \
+    --enable-gssapi \
+    --with-rc4 \
+    --with-dblib=gdbm \
+    --with-saslauthd=/run/saslauthd \
+    --without-pwcheck \
+    --with-devrandom=/dev/urandom \
+    --with-sqlite \
+    --enable-anon \
+    --enable-cram \
+    --enable-digest \
+    --enable-ntlm \
+    --enable-plain \
+    --enable-login \
+    --enable-auth-sasldb \
+    --enable-alwaystrue \
+    --disable-otp
+
+make
+make DESTDIR="$1" install
+
+install -Dm755 saslauthd.initd "$1/etc/init.d/saslauthd"
