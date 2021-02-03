@@ -1,0 +1,67 @@
+#!/bin/sh -e
+
+for patch in *.patch; do
+    patch -p1 < "$patch"
+done
+
+./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --datadir=/usr/share/php \
+    --mandir=/usr/share/man \
+    --enable-fpm \
+    --with-fpm-user=apache \
+    --with-fpm-group=apache \
+    --with-config-file-path=/etc \
+    --with-zlib \
+    --enable-bcmath \
+    --with-bz2 \
+    --enable-calendar \
+    --enable-dba=shared \
+    --without-gdbm \
+    --without-gmp \
+    --enable-ftp \
+    --without-gettext \
+    --without-readline \
+    --with-layout=GNU \
+    --with-pic \
+    --with-config-file-scan-dir=/etc/php8/conf.d \
+    --enable-ctype=shared \
+    --with-curl=shared  \
+    --with-dbmaker=shared \
+    --enable-dom=shared \
+    --enable-fileinfo=shared \
+    --enable-gd=shared \
+    --with-freetype \
+    --with-mysqli=shared,mysqlnd \
+    --with-mysql-sock=/var/run/mysqld/mysqld.sock \
+    --enable-mysqlnd=shared \
+    --enable-opcache=shared \
+    --with-openssl=shared  \
+    --with-system-ciphers \
+    --enable-pcntl=shared \
+    --without-pcre-jit \
+    --enable-pdo=shared \
+    --with-pdo-dblib=shared \
+    --with-pdo-mysql=shared,mysqlnd \
+    --with-pdo-odbc=shared,unixODBC,/usr \
+    --with-pdo-pgsql=shared \
+    --with-pdo-sqlite=shared \
+    --with-pgsql=shared \
+    --enable-phar=shared \
+    --enable-posix=shared \
+    --enable-session=shared \
+    --enable-sockets=shared \
+    --with-sqlite3=shared \
+    --enable-tokenizer=shared \
+    --with-unixODBC=shared,/usr \
+    --enable-xml=shared \
+    --enable-xmlreader=shared \
+    --enable-xmlwriter=shared \
+    --with-xsl=shared
+
+make
+make INSTALL_ROOT="$1" install
+
+install -Dm644 php.ini-production "$1/etc/php.ini"

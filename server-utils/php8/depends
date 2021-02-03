@@ -1,0 +1,13 @@
+bzip2
+curl
+freedts
+freetype-harfbuzz
+libXslt
+libpng
+libressl
+libxml2
+postgresql
+sqlite
+unixodbc
+xz
+zlib

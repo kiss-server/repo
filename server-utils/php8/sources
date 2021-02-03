@@ -1,0 +1,7 @@
+http://www.php.net/distributions/php-8.0.1.tar.xz
+patches/fix-tests-devserver.patch
+patches/includedir.patch
+patches/install-pear.patch
+patches/php8-fpm-version-suffix.patch
+patches/sharedir.patch
+
