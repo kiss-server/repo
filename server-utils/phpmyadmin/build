@@ -6,7 +6,7 @@ mkdir -p "$1/usr/share/webapps/phpmyadmin"
 mkdir -p "$1/etc/phpmyadmin"
 mkdir -p "$1/usr/share/phpmyadmin"
 
-cp -r * "$1/usr/share/webapps/phpmyadmin/"
+cp -r ./* "$1/usr/share/webapps/phpmyadmin/"
 
 install -Dm664 config.sample.inc.php "$1/etc/phpmyadmin/config.inc.php"
 install -Dm644 ../phpmyadmin.apache2.conf "$1/etc/apache2/conf.d/phpmyadmin.conf"
