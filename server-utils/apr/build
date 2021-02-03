@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --datadir=/usr/share \
+    --enable-nonportable-atomics \
+    --with-devrandom=/dev/urandom
+
+make
+make DESTDIR="$1" install
