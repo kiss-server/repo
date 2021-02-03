@@ -1,0 +1,36 @@
+#!/bin/sh -e
+
+#for patch in *.patch; do
+#    patch -p1 < "$patch"
+#done
+
+echo "Connecting to CVS server..."
+export CVS_RSH=ssh
+if [[ -d ${_cvsmod}/CVS ]]; then
+  (cd ${_cvsmod} && cvs -z3 update -d)
+else
+cvs -z3 -d ${_cvsroot} co -D $(echo ${pkgver} | grep -o "r.*" | sed 's/^r//;s/\./-/g') -f ${_cvsmod}
+fi
+echo "CVS checkout done or server timeout"
+echo "Starting make..."
+rm -rf ${_cvsmod}-build
+cp -r ${_cvsmod} ${_cvsmod}-build
+
+
+cat >configure.local<<-EOF
+PREFIX=/usr
+MANDIR=/usr/share/man
+LIBDIR=/usr/lib
+CFLAGS="$CFLAGS"
+UTF8_LOCALE="en_US.UTF-8"
+MANPATH_DEFAULT=/usr/share/man
+EOF
+
+./configure
+
+make
+make DESTDIR="$1" base-install lib-install
+
+rm "$1/usr/bin/{apropos,whatis,man,makewhatis}"
+
+ln -s /usr/bin/mandoc "$1/usr/bin/{apropos,whatis,man,makewhatis}"
