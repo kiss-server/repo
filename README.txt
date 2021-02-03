@@ -40,10 +40,10 @@ Repo structure:
   		--> jansson
   		--> linux-pam
   		--> mariadb
-  		--> mdocml
+  		-->  ̶m̶d̶o̶c̶m̶l̶
   		--> nghttp2
   		--> nginx
-  		--> openldap
+  		-->  ̶o̶p̶e̶n̶l̶d̶a̶p̶
   		--> php7.2
   		--> php7.4
   		--> php8
