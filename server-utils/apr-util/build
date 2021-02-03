@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --with-apr=/usr \
+    --with-pgsql \
+    --with-mysql \
+    --with-sqlite3 \
+    --with-crypto \
+    --with-libressl \
+    --without-sqlite2 \
+    --without-berkeley-db \
+    --with-dbm=ndbm
+
+make
+make DESTDIR="$1" install
