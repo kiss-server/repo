@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+patch -p1 < atomic.patch
+
+cd build_unix
+
+../dist/configure \
+    --prefix=/usr \
+    --mandir=/usr/share/man \
+    --enable-compat185 \
+    --enable-shared \
+    --enable-cxx \
+    --disable-static
+
+make DESTDIR="$1" install
+
+rm -r "$1/usr/docs"
