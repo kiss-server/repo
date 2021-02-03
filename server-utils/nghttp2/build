@@ -3,8 +3,6 @@
 autoreconf -vif
 
 ./configure \
-    --build=$CBUILD \
-    --host=$CHOST \
     --prefix=/usr \
     --sysconfdir=/etc \
     --mandir=/usr/share/man \
